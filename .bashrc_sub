@@ -1,0 +1,48 @@
+
+export EDITOR="vim"
+
+# erasedups: 全履歴に渡り重複コマンドを削除します
+HISTCONTROL=erasedups
+HISTIGNORE=history:ls:pwd:jobs:fg:exit
+HISTSIZE=20000
+HISTFILESIZE=40000
+
+#
+parse_git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+# bind
+if [ "$PS1" != "" ]; then
+  bind '"\C-p": history-search-backward'
+  bind '"\C-n": history-search-forward'
+  PS1="@\h:[\W]\$(parse_git_branch)\$ "
+fi
+
+if [ -f "/usr/local/bin/ctags" ]; then
+  alias   ctags='/usr/local/bin/ctags'
+fi
+
+if [ "$TERM_PROGRAM" = "Apple_Terminal" ]; then
+  if [ -f "/usr/libexec/java_home" ]; then
+    #export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
+    export JAVA_HOME=`/usr/libexec/java_home`
+  fi
+fi
+
+
+alias   grep='grep --color'
+alias   be='bundle exec'
+#
+alias   ceall='find . -name "*~" | xargs /bin/rm -f'
+#alias   ls='ls --color=tty'
+alias   z='suspend'
+alias   less='lv'
+alias   mv='mv -i'
+alias   cp='cp -i'
+alias   j='jobs -l'
+
+alias   h='history'
+alias   psa='ps auxww'
+alias   cls='clear'
+
