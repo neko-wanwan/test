@@ -46,3 +46,4 @@ alias   h='history'
 alias   psa='ps auxww'
 alias   cls='clear'
 
+alias sudo='sudo -E '
