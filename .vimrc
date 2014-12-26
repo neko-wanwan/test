@@ -42,6 +42,12 @@ set nocompatible               " be iMproved
 filetype off                   " required!
 set modeline
 
+set noignorecase
+set smartcase
+
+" ランキング2位の設定。一行の文字数があまりにも多いとvimで表示されなくなってしまうことへの対処。
+set display=lastline
+
 " 色付けon -> 下に移動。
 
 set rtp+=~/.vim/bundle/vundle/
@@ -211,6 +217,7 @@ autocmd FileType c set ts=2 sw=2 st=0 expandtab
 autocmd FileType cpp set ts=2 sw=2 st=0 expandtab
 autocmd FileType javascript set ts=2 sw=2 st=0 expandtab
 autocmd FileType html set ts=2 sw=2 st=0 expandtab
+autocmd FileType scss set ts=2 sw=2 st=0 expandtab
 autocmd FileType ruby set ts=2 sw=2 st=0 expandtab
 autocmd FileType sh set ts=2 sw=2 st=0 expandtab
 autocmd FileType xml set ts=2 sw=2 st=0 expandtab
