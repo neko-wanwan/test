@@ -77,6 +77,45 @@ let g:neocomplcache_snippets_dir = "~/.vim/snippets"
 imap <C-k> <plug>(neocomplcache_snippets_expand)
 smap <C-k> <plug>(neocomplcache_snippets_expand)
 
+" ----------------------------------------------
+"  Start Neobundle Settings.
+"  ---------------------------------------------
+" bundle で管理するディレクトリを指定
+set runtimepath+=~/.vim/bundle/neobundle.vim/
+
+" Required:
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+" neobundle 時代をneobundleで管理
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" 追加のプラグイン！
+" NERDTree
+NeoBundle 'scrooloose/nerdtree'
+" autoclose
+NeoBundle 'Townk/vim-autoclose'
+" quickrun
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'wesleyche/SrcExpl'
+NeoBundle 'taglist.vim'
+NeoBundle 'wesleyche/Trinity'
+
+" 変数一覧は表示させない
+let tlist_php_settings = 'php;c:class;d:constant;f:function'
+
+call neobundle#end()
+
+" Required:
+" すでに設定済みだったの不要。。？
+" filetype plugin indent on
+"
+" 未インストールのプラグインがある場合、インストールするかどうかを尋ねる
+NeoBundleCheck
+
+" ----------------------------------------------
+"  End Neobundle Settings.
+"  ---------------------------------------------
+
 " --------*--------*--------*--------*--------*--------*--------*--------
 " シンタックスチェック
 " javascriptを利用する場合、jshint/jslintのインストールが必須。jslintが良いよさげ
@@ -214,7 +253,7 @@ autocmd FileType html set ts=2 sw=2 st=0 expandtab
 autocmd FileType ruby set ts=2 sw=2 st=0 expandtab
 autocmd FileType sh set ts=2 sw=2 st=0 expandtab
 autocmd FileType xml set ts=2 sw=2 st=0 expandtab
-autocmd FileType php set ts=4 dictionary=~/.vim/dict/php.dict
+autocmd FileType php set ts=2 sw=2 st=0 expandtab dictionary=~/.vim/dict/php.dict
 autocmd FileType jade set ts=2 sw=2 st=0 expandtab
 autocmd FileType json set ts=2 sw=2 st=0 expandtab
 autocmd FileType yaml set ts=2 sw=2 st=0 expandtab
