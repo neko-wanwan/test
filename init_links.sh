@@ -2,10 +2,13 @@
 
 MY_HOME=$(cd $(dirname $0) && pwd)
 
-DOT_FILES=".gemrc .vimrc .bashrc .ctags .screenrc .vim/dict/php.dict"
+DOT_FILES=".gemrc .vimrc .bashrc .ctags .screenrc .vim/dict/php.dict .vim/syntax/phpunit.vim"
 
 if [ ! -d "$HOME/.vim/dict" ]; then
   mkdir -p $HOME/.vim/dict
+fi
+if [ ! -d "$HOME/.vim/syntax" ]; then
+  mkdir -p $HOME/.vim/syntax
 fi
 
 for file in $DOT_FILES
@@ -25,10 +28,9 @@ done
 
 # vimのbundle
 if [ ! -d "$HOME/.vim/bundle" ]; then
-  git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
   git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 else
-  (cd $HOME/.vim/bundle/vundle; git pull --rebase)
+  (cd $HOME/.vim/bundle/neobundle.vim; git pull --rebase)
 fi
 
 grep "source $MY_HOME/.bashrc_sub" $HOME/.bashrc
