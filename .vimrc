@@ -78,6 +78,9 @@ let g:nayn_modoki_animation_enabled= 1
 " NeoBundle 'Shougo/vimproc'
 NeoBundle 'Shougo/neocomplcache'
 
+" Git 用プラグイン
+NeoBundle 'tpope/vim-fugitive'
+
 call neobundle#end()
 
 " Required:
@@ -138,3 +141,54 @@ let g:neocomplcache_caching_percent_in_statusline = 1
 let g:neocomplcache_enable_skip_completion = 1
 let g:neocomplcache_skip_input_time = '0.5'
 
+
+" コマンドライン補完
+set wildmenu
+
+" コマンドラインの行数
+set cmdheight=2
+
+set t_Co=256
+
+" 検索時に大文字・小文字を区別しない
+" ただし、検索後に大文字小文字が混在しているときは区別する
+set ignorecase
+set smartcase
+" 画面最下行にルーラーを表示する
+set ruler
+" 検索後を強調表示
+" <C-l> を押すと現在の強調表示を解除する
+set hlsearch
+nnoremap <silent> <C-l> :nohl<CR><C-l>
+" 不可視文字表示
+set list
+set listchars=tab:≫\ ,trail:-,extends:≫,precedes:≪,nbsp:%
+
+" タブ切り替え
+nnoremap <C-n> gt
+nnoremap <C-p> gT
+
+" NERDTree
+let file_name = expand("%")
+if has('vim_starting') &&  file_name == ""
+	autocmd VimEnter * NERDTree ./
+endif
+
+" NERDTree をCtrl-k で切り替えられるように
+nmap <silent> <C-e> :NERDTreeToggle<CR>
+vmap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
+omap <silent> <C-e> :NERDTreeToggle<CR>
+imap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
+cmap <silent> <C-e> <C-u>:NERDTreeToggle<CR>
+" Tlist をCtrl-k で切り替えられるように
+nmap <silent> <C-k> :Tlist<CR>
+vmap <silent> <C-k> <Esc>:Tlist<CR>
+omap <silent> <C-k> :Tlist<CR>
+imap <silent> <C-k> <Esc>:Tlist<CR>
+cmap <silent> <C-k> <C-u>:Tlist<CR>
+" Trinity をCtrl-fで切り替えられるように
+nmap <silent> <C-f> :TrinityToggleAll<CR>
+vmap <silent> <C-f> <Esc>:TrinityToggleAll<CR>
+omap <silent> <C-f> :TrinityToggleAll<CR>
+imap <silent> <C-f> <Esc>:TrinityToggleAll<CR>
+cmap <silent> <C-f> <C-u>:TrinityToggleAll<CR>
