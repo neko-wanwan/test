@@ -15,6 +15,7 @@ set smartcase
 " ランキング2位の設定。一行の文字数があまりにも多いとvimで表示されなくなってしまうことへの対処。
 set display=lastline
 
+
 " ----------------------------------------------
 "  Start Neobundle Settings.
 "  ---------------------------------------------
@@ -69,6 +70,9 @@ let g:syntastic_javascript_checker = "jshint" "JavaScriptのSyntaxチェック�
 let g:syntastic_check_on_open = 0 "ファイルオープン時にはチェックをしない
 let g:syntastic_check_on_save = 1 "ファイル保存時にはチェックを実施
 
+" Scala のSyntax
+NeoBundle 'derekwyatt/vim-scala'
+
 NeoBundle 'drillbits/nyan-modoki.vim'
 set laststatus=2
 set statusline=%F%m%r%h%w[%{&ff}]%=%{g:NyanModoki()}(%l,%c)[%P]
@@ -77,6 +81,11 @@ let g:nayn_modoki_animation_enabled= 1
 
 " NeoBundle 'Shougo/vimproc'
 NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimshell.vim'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 
 " Git 用プラグイン
 NeoBundle 'tpope/vim-fugitive'
@@ -123,14 +132,26 @@ autocmd FileType jade set ts=2 sw=2 st=0 expandtab
 autocmd FileType json set ts=2 sw=2 st=0 expandtab
 autocmd FileType yaml set ts=2 sw=2 st=0 expandtab
 autocmd FileType slim set ts=2 sw=2 st=0 expandtab
+autocmd FileType scala set ts=2 sw=2 st=0 expandtab dictionary=~/.vim/dict/scala.dict
+autocmd QuickFixCmdPost make if len(getqflist()) !~= | copen | endif
 
 syntax on
+
+"-------------------------------------------------
+"scala
+augroup filetypedetect
+" autocmd! BufNewFile,BufRead *.scala setfiletype scala
+" autocmd! BufNewFile,BufRead *.sbt setfiletype scala
+augroup END
+autocmd BufWritePost *.php silent make | if len(getqflist()) != 1 | copen | else | cclose | endif
 
 "-------------------------------------------------
 "" neocomplcache設定
 "-------------------------------------------------
 ""辞書ファイル
 autocmd BufRead *.php\|*.ctp\|*.tpl :set dictionary=~/.vim/dict/php.dict filetype=php
+autocmd BufRead *.scala\|*.sbt :set dictionary=~/.vim/dict/scala.dict filetype=scala
+au BufRead,BufNewFile *.scala set tags+=~/work/scalatest/scala/tags
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 1
@@ -174,12 +195,24 @@ if has('vim_starting') &&  file_name == ""
 	autocmd VimEnter * NERDTree ./
 endif
 
-" NERDTree をCtrl-k で切り替えられるように
-nmap <silent> <C-e> :NERDTreeToggle<CR>
-vmap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
-omap <silent> <C-e> :NERDTreeToggle<CR>
-imap <silent> <C-e> <Esc>:NERDTreeToggle<CR>
-cmap <silent> <C-e> <C-u>:NERDTreeToggle<CR>
+" S + ? でset ?, no? を行う
+nnoremap [set] <Nop>
+nmap S [set]
+" set paste  貼り付け
+nnoremap <silent> [set]p :set paste<CR>
+" set nopaste 
+nnoremap <silent> [set]np :set nopaste<CR>
+" set number  行数表示
+nnoremap <silent> [set]n :set number<CR>
+" set nonumber
+nnoremap <silent> [set]nn :set nonumber<CR>
+
+" NERDTree をCtrl-e で切り替えられるように
+nmap <silent> <C-b> :NERDTreeToggle<CR>
+vmap <silent> <C-b> <Esc>:NERDTreeToggle<CR>
+omap <silent> <C-b> :NERDTreeToggle<CR>
+imap <silent> <C-b> <Esc>:NERDTreeToggle<CR>
+cmap <silent> <C-b> <C-u>:NERDTreeToggle<CR>
 " Tlist をCtrl-k で切り替えられるように
 nmap <silent> <C-k> :Tlist<CR>
 vmap <silent> <C-k> <Esc>:Tlist<CR>
@@ -192,3 +225,8 @@ vmap <silent> <C-f> <Esc>:TrinityToggleAll<CR>
 omap <silent> <C-f> :TrinityToggleAll<CR>
 imap <silent> <C-f> <Esc>:TrinityToggleAll<CR>
 cmap <silent> <C-f> <C-u>:TrinityToggleAll<CR>
+
+let g:neosnippet#snippets_directory='~/.vim/snippets'
+
+inoremap <expr><C-e> neocomplcache#cancel_popup()
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
