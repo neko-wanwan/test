@@ -9,8 +9,8 @@ filetype off
 
 set modeline
 
-set noignorecase
-set smartcase
+"set noignorecase
+"set smartcase
 
 " ランキング2位の設定。一行の文字数があまりにも多いとvimで表示されなくなってしまうことへの対処。
 set display=lastline
@@ -64,11 +64,9 @@ NeoBundle 'wesleyche/Trinity'
 " 変数一覧は表示させない Tlist の設定
 let tlist_php_settings = 'php;c:class;d:constant;f:function'
 
-NeoBundle 'scrooloose/syntastic'
-" JavaScript のシンタックスチェックをjshintで
-let g:syntastic_javascript_checker = "jshint" "JavaScriptのSyntaxチェックはjshintで
-let g:syntastic_check_on_open = 0 "ファイルオープン時にはチェックをしない
-let g:syntastic_check_on_save = 1 "ファイル保存時にはチェックを実施
+"""NeoBundle 'scrooloose/syntastic'
+"""let g:syntastic_check_on_open = 0 "ファイルオープン時にはチェックをしない
+"""let g:syntastic_check_on_save = 1 "ファイル保存時にはチェックを実施
 
 " Scala のSyntax
 NeoBundle 'derekwyatt/vim-scala'
@@ -103,13 +101,15 @@ NeoBundleCheck
 "  End Neobundle Settings.
 "  ---------------------------------------------
 
-filetype plugin on
-filetype indent on
-
 
 "エラー時、Quickfixが起動する
-let g:syntastic_auto_loc_list = 1	
-let g:syntastic_javascript_checker = 'jshint'
+"""let g:syntastic_mode_map = {
+"""  \ 'mode': 'active',
+"""  \ 'active_filetypes': ['javascript', 'json'],
+"""  \ 'passive_filetypes': ['html']
+"""  \}
+"""let g:syntastic_auto_loc_list = 1
+"""let g:syntastic_javascript_checker = 'jshint'
 
 autocmd FileType javascript set omnifunc=jscomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -183,7 +183,22 @@ set hlsearch
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 " 不可視文字表示
 set list
-set listchars=tab:≫\ ,trail:-,extends:≫,precedes:≪,nbsp:%
+set listchars=tab:>-,trail:_,extends:>,precedes:<,nbsp:%
+"全角スペースをハイライト表示
+function! ZenkakuSpace()
+    highlight ZenkakuSpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
+endfunction
+
+if has('syntax')
+    augroup ZenkakuSpace
+        autocmd!
+        autocmd ColorScheme       * call ZenkakuSpace()
+        autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+    augroup END
+    call ZenkakuSpace()
+endif
+
+"""set listchars=tab:≫\ ,trail:-,extends:≫,precedes:≪,nbsp:%
 
 " タブ切り替え
 nnoremap <C-n> gt
@@ -228,5 +243,5 @@ cmap <silent> <C-f> <C-u>:TrinityToggleAll<CR>
 
 let g:neosnippet#snippets_directory='~/.vim/snippets'
 
-inoremap <expr><C-e> neocomplcache#cancel_popup()
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+"""inoremap <expr><C-e> neocomplcache#cancel_popup()
+"""inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
