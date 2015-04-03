@@ -47,3 +47,6 @@ alias   psa='ps auxww'
 alias   cls='clear'
 
 alias sudo='sudo -E '
+
+# byobu 実行時にステータスバーが無限に表示される問題の対処
+export VTE_CJK_WIDTH=1
