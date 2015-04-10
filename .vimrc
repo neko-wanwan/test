@@ -71,11 +71,11 @@ let tlist_php_settings = 'php;c:class;d:constant;f:function'
 " Scala のSyntax
 NeoBundle 'derekwyatt/vim-scala'
 
-NeoBundle 'drillbits/nyan-modoki.vim'
-set laststatus=2
-set statusline=%F%m%r%h%w[%{&ff}]%=%{g:NyanModoki()}(%l,%c)[%P]
-let g:nyan_modoki_select_cat_face_number = 2
-let g:nayn_modoki_animation_enabled= 1
+" NeoBundle 'drillbits/nyan-modoki.vim'
+" set laststatus=2
+" set statusline=%F%m%r%h%w[%{&ff}]%=%{g:NyanModoki()}(%l,%c)[%P]
+" let g:nyan_modoki_select_cat_face_number = 2
+" let g:nayn_modoki_animation_enabled= 1
 
 " NeoBundle 'Shougo/vimproc'
 NeoBundle 'Shougo/neocomplcache'
