@@ -37,3 +37,5 @@ grep "source $MY_HOME/.bashrc_sub" $HOME/.bashrc
 if [ $? != 0 ]; then
   echo "source $MY_HOME/.bashrc_sub" >> $HOME/.bashrc
 fi
+
+$HOME/.vim/bundle/neobundle.vim/bin/neoinstall
