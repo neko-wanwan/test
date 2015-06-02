@@ -91,12 +91,14 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 " Git 用プラグイン
 NeoBundle 'tpope/vim-fugitive'
 
-NeoBundle 'drillbits/nyan-modoki.vim'
 set laststatus=2
-set statusline=%F%m%r%h%w[%{&ff}]%=%{g:NyanModoki()}(%l,%c)[%P]
-let g:nyan_modoki_select_cat_face_number = 2
-let g:nayn_modoki_animation_enabled= 1
-"
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+
+NeoBundle 'editorconfig/editorconfig-vim'
+NeoBundle 'GutenYe/json5.vim'
+
+" カラーテーマ
+NeoBundle 'altercation/vim-colors-solarized'
 
 call neobundle#end()
 
@@ -255,3 +257,43 @@ let g:neosnippet#snippets_directory='~/.vim/snippets'
 
 """inoremap <expr><C-e> neocomplcache#cancel_popup()
 """inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+
+"set background=dark
+try
+"  colorscheme solarized
+catch
+endtry
+
+" insert modeで開始
+let g:unite_enable_start_insert = 1
+
+" 大文字小文字を区別しない
+let g:unite_enable_ignore_case = 1
+let g:unite_enable_smart_case = 1
+
+" grep検索
+nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+
+" カーソル位置の単語をgrep検索
+nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+
+" grep検索結果の再呼出
+nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
+
+" unite grep に ag(The Silver Searcher) を使う
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+  let g:unite_source_grep_recursive_opt = ''
+endif
+
+"let g:unite_source_history_yank_enable = 1
+"try
+"  let g:unite_source_rec_async_command='ag --nocolor --nogroup -g ""'
+"  call unite#filters#matcher_default#use(['matcher_fuzzy'])
+"catch
+"endtry
+"" search a file in the filetree
+"nnoremap <space><space> :split<cr> :<C-u>Unite -start-insert file_rec/async<cr>
+"" reset not it is <C-l> normally
+":nnoremap <space>r <Plug>(unite_restart)
