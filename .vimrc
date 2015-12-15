@@ -44,10 +44,12 @@ NeoBundle 'Townk/vim-autoclose'
 " quickrun
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'karakaram/vim-quickrun-phpunit'
+
 augroup QuickRunPHPUnit
 	autocmd!
 	autocmd BufWinEnter,BufNewFile *Test.php set filetype=phpunit
 augroup END
+
 
 let g:quickrun_config = {
 			\  "_" : {
@@ -100,6 +102,11 @@ NeoBundle 'GutenYe/json5.vim'
 " カラーテーマ
 NeoBundle 'altercation/vim-colors-solarized'
 
+" rspec
+NeoBundle 'thoughtbot/vim-rspec'
+NeoBundle 'tpope/vim-dispatch'
+let g:rspec_command = "Dispatch rspec {spec}"
+
 call neobundle#end()
 
 " Required:
@@ -113,6 +120,7 @@ NeoBundleCheck
 "  End Neobundle Settings.
 "  ---------------------------------------------
 
+set timeout timeoutlen=1000 ttimeoutlen=75
 
 "エラー時、Quickfixが起動する
 """let g:syntastic_mode_map = {
@@ -224,38 +232,38 @@ endif
 
 " S + ? でset ?, no? を行う
 nnoremap [set] <Nop>
-nmap S [set]
+nmap ,s [set]
 " set paste  貼り付け
 nnoremap <silent> [set]p :set paste<CR>
-" set nopaste 
-nnoremap <silent> [set]np :set nopaste<CR>
-" set number  行数表示
+" set nopast
+nnoremap <silent> [set]P :set nopaste<CR>
+"" set number  行数表示
 nnoremap <silent> [set]n :set number<CR>
 " set nonumber
-nnoremap <silent> [set]nn :set nonumber<CR>
+nnoremap <silent> [set]N :set nonumber<CR>
 
 " NERDTree をCtrl-e で切り替えられるように
-nmap <silent> <C-b> :NERDTreeToggle<CR>
-vmap <silent> <C-b> <Esc>:NERDTreeToggle<CR>
-omap <silent> <C-b> :NERDTreeToggle<CR>
-imap <silent> <C-b> <Esc>:NERDTreeToggle<CR>
-cmap <silent> <C-b> <C-u>:NERDTreeToggle<CR>
+nmap <silent> <C-t> :NERDTreeToggle<CR>
+vmap <silent> <C-t> <Esc>:NERDTreeToggle<CR>
+omap <silent> <C-t> :NERDTreeToggle<CR>
+imap <silent> <C-t> <Esc>:NERDTreeToggle<CR>
+cmap <silent> <C-t> <C-u>:NERDTreeToggle<CR>
 " Tlist をCtrl-k で切り替えられるように
-nmap <silent> <C-k> :Tlist<CR>
-vmap <silent> <C-k> <Esc>:Tlist<CR>
-omap <silent> <C-k> :Tlist<CR>
-imap <silent> <C-k> <Esc>:Tlist<CR>
-cmap <silent> <C-k> <C-u>:Tlist<CR>
+"nmap <silent> <C-k> :Tlist<CR>
+"vmap <silent> <C-k> <Esc>:Tlist<CR>
+"omap <silent> <C-k> :Tlist<CR>
+"imap <silent> <C-k> <Esc>:Tlist<CR>
+"cmap <silent> <C-k> <C-u>:Tlist<CR>
 " Trinity をCtrl-fで切り替えられるように
-nmap <silent> <C-f> :TrinityToggleAll<CR>
-vmap <silent> <C-f> <Esc>:TrinityToggleAll<CR>
-omap <silent> <C-f> :TrinityToggleAll<CR>
-imap <silent> <C-f> <Esc>:TrinityToggleAll<CR>
-cmap <silent> <C-f> <C-u>:TrinityToggleAll<CR>
+"nmap <silent> <C-f> :TrinityToggleAll<CR>
+"vmap <silent> <C-f> <Esc>:TrinityToggleAll<CR>
+"omap <silent> <C-f> :TrinityToggleAll<CR>
+"imap <silent> <C-f> <Esc>:TrinityToggleAll<CR>
+"cmap <silent> <C-f> <C-u>:TrinityToggleAll<CR>
 
 let g:neosnippet#snippets_directory='~/.vim/snippets'
 
-"""inoremap <expr><C-e> neocomplcache#cancel_popup()
+inoremap <expr><C-e> neocomplcache#cancel_popup()
 """inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 
 "set background=dark
@@ -272,13 +280,13 @@ let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
 
 " grep検索
-nnoremap <silent> ,g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+nnoremap <silent> ,ug  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 
 " カーソル位置の単語をgrep検索
-nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+nnoremap <silent> ,ucg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
 
 " grep検索結果の再呼出
-nnoremap <silent> ,r  :<C-u>UniteResume search-buffer<CR>
+nnoremap <silent> ,ur  :<C-u>UniteResume search-buffer<CR>
 
 " unite grep に ag(The Silver Searcher) を使う
 if executable('ag')
@@ -297,3 +305,9 @@ endif
 "nnoremap <space><space> :split<cr> :<C-u>Unite -start-insert file_rec/async<cr>
 "" reset not it is <C-l> normally
 ":nnoremap <space>r <Plug>(unite_restart)
+"
+
+nmap <silent> ,rf :call RunCurrentSpecFile()<CR>
+nmap <silent> ,rn :call RunNearestSpec()<CR>
+nmap <silent> ,rl :call RunLastSpec()<CR>
+nmap <silent> ,ra :call RunAllSpecs()<CR>
