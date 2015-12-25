@@ -128,6 +128,7 @@ autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType jade set omnifunc=jadecomplete#CompleteJade
+autocmd FileType erb set omnifunc=htmlcomplete#CompleteTags
 
 " ファイルタイプごとの設定
 " ts:tabstop, sw:shift width
