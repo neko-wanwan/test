@@ -2,13 +2,16 @@
 
 MY_HOME=$(cd $(dirname $0) && pwd)
 
-DOT_FILES=".gemrc .vimrc .bashrc .ctags .screenrc .vim/dict/php.dict .vim/syntax/phpunit.vim"
+DOT_FILES=".gemrc .vimrc .bashrc .ctags .screenrc .vim/dict/php.dict .vim/syntax/phpunit.vim .vim/colors/molokai.vim"
 
 if [ ! -d "$HOME/.vim/dict" ]; then
   mkdir -p $HOME/.vim/dict
 fi
 if [ ! -d "$HOME/.vim/syntax" ]; then
   mkdir -p $HOME/.vim/syntax
+fi
+if [ ! -d "$HOME/.vim/colors" ]; then
+  mkdir -p $HOME/.vim/colors
 fi
 
 for file in $DOT_FILES
