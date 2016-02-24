@@ -151,6 +151,7 @@ autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType jade set omnifunc=jadecomplete#CompleteJade
+autocmd FileType erb set omnifunc=htmlcomplete#CompleteTags
 
 " ファイルタイプごとの設定
 " ts:tabstop, sw:shift width
@@ -346,8 +347,21 @@ nmap <silent> ,rl :call RunLastSpec()<CR>
 nmap <silent> ,ra :call RunAllSpecs()<CR>
 
 let mapleader = "\<Space>"
+autocmd FileType python setlocal omnifunc=jedi#completions
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
 let g:jedi#auto_initialization = 1
 let g:jedi#rename_command = "<leader>R"
 let g:jedi#popup_on_dot = 1
+
+" g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
+
 autocmd FileType python let b:did_ftplugin = 1
 
+au FileType qf nnoremap <silent><buffer>q :quit<CR>
+let g:quickrun_no_default_key_mappings = 1
+nnoremap \r :write<CR>:QuickRun -mode n<CR>
+xnoremap \r :<C-U>write<CR>gv:QuickRun -mode v<CR>
