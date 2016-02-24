@@ -1,6 +1,3 @@
---langmap=CSS:+.scss
-
-
 
 --langdef=Scala
 --langmap=Scala:.scala

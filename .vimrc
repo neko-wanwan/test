@@ -110,6 +110,13 @@ NeoBundle 'GutenYe/json5.vim'
 " カラーテーマ
 NeoBundle 'altercation/vim-colors-solarized'
 
+" erbインデント用
+NeoBundle 'othree/html5.vim'
+let g:html5_event_handler_attributes_complete = 0
+let g:html5_rdfa_attributes_complete = 0
+let g:html5_microdata_attributes_complete = 0
+let g:html5_aria_attributes_complete = 0
+
 " rspec
 NeoBundle 'thoughtbot/vim-rspec'
 NeoBundle 'tpope/vim-dispatch'
@@ -151,6 +158,7 @@ autocmd FileType c set ts=2 sw=2 st=0 expandtab
 autocmd FileType cpp set ts=2 sw=2 st=0 expandtab
 autocmd FileType javascript set ts=2 sw=2 st=0 expandtab
 autocmd FileType html set ts=2 sw=2 st=0 expandtab
+autocmd FileType erb set ts=2 sw=2 st=0 expandtab
 autocmd FileType scss set ts=2 sw=2 st=0 expandtab
 autocmd FileType ruby set ts=2 sw=2 st=0 expandtab
 autocmd FileType sh set ts=2 sw=2 st=0 expandtab
