@@ -22,7 +22,8 @@ HISTFILESIZE=40000
 if [ "$PS1" != "" ]; then
   bind '"\C-p": history-search-backward'
   bind '"\C-n": history-search-forward'
-  PS1="@\h:[\W]\$(parse_git_branch)\$ "
+  # PS1="@\h:[\W]\$(parse_git_branch)\$ "
+  PS1="\u@\h:[\W]\$(parse_git_branch)\$ "
 fi
 
 if [ -f "/usr/local/bin/ctags" ]; then

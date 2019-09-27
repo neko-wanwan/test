@@ -52,6 +52,7 @@ NeoBundle 'hynek/vim-python-pep8-indent'
 
 NeoBundle 'tpope/vim-surround'
 
+NeoBundle 'mrk21/yaml-vim'
 
 augroup QuickRunPHPUnit
 	autocmd!
@@ -365,3 +366,5 @@ au FileType qf nnoremap <silent><buffer>q :quit<CR>
 let g:quickrun_no_default_key_mappings = 1
 nnoremap \r :write<CR>:QuickRun -mode n<CR>
 xnoremap \r :<C-U>write<CR>gv:QuickRun -mode v<CR>
+
+hi Comment ctermfg=gray
