@@ -7,23 +7,21 @@ HISTIGNORE=history:ls:pwd:jobs:fg:exit
 HISTSIZE=20000
 HISTFILESIZE=40000
 
+source ~/.git-prompt.sh
+source ~/.git-completion.bash
+
 #
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
-
-# erasedups: 全履歴に渡り重複コマンドを削除します
-HISTCONTROL=erasedups
-HISTIGNORE=history:ls:pwd:jobs:fg:exit
-HISTSIZE=20000
-HISTFILESIZE=40000
 
 # bind
 if [ "$PS1" != "" ]; then
   bind '"\C-p": history-search-backward'
   bind '"\C-n": history-search-forward'
   # PS1="@\h:[\W]\$(parse_git_branch)\$ "
-  PS1="\u@\h:[\W]\$(parse_git_branch)\$ "
+  # PS1="\u@\h:[\W]\$(parse_git_branch)\$ "
+  PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 fi
 
 if [ -f "/usr/local/bin/ctags" ]; then
