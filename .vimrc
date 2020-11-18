@@ -299,7 +299,8 @@ cmap <silent> <C-t> <C-u>:NERDTreeToggle<CR>
 let g:neosnippet#snippets_directory='~/.vim/snippets'
 
 inoremap <expr><C-e> neocomplcache#cancel_popup()
-"""inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+"" inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "\<CR>"
 
 "set background=dark
 try
