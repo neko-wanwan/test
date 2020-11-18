@@ -2,7 +2,12 @@
 
 MY_HOME=$(cd $(dirname $0) && pwd)
 
-DOT_FILES=".gemrc .vimrc .bashrc .ctags .screenrc .vim/dict/php.dict .vim/syntax/phpunit.vim .vim/colors/molokai.vim"
+curl -L -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+mv git-prompt.sh .git-prompt.sh
+curl -L -O https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+mv git-completion.bash .git-completion.bash
+
+DOT_FILES=".gemrc .vimrc .bashrc .ctags .screenrc .vim/dict/php.dict .vim/syntax/phpunit.vim .vim/colors/molokai.vim .git-completion.bash .git-prompt.sh"
 
 if [ ! -d "$HOME/.vim/dict" ]; then
   mkdir -p $HOME/.vim/dict
